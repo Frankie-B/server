@@ -4,7 +4,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
 app.get('/signup', (req, res) => {
-  res.render('user/signup');
+  res.json({ message: 'The user route is working' });
 });
 
 app.post('/signup', (req, res, next) => {
@@ -21,7 +21,7 @@ app.post('/signup', (req, res, next) => {
         password: hash,
       })
         .then((user) => {
-          res.redirect('/user/login');
+          res.redirect('/login');
         })
         .catch((error) => {
           res.send('User not create', error);
@@ -31,7 +31,7 @@ app.post('/signup', (req, res, next) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('user/login');
+  res.render('/login');
 });
 
 app.post('/login', (req, res) => {
