@@ -18,6 +18,18 @@ const validateName = [
   }),
 ];
 
+const validateEmail = [
+  validate({
+    validator: function (v) {
+      return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
+        v
+      );
+    },
+    passIfEmpty: false,
+    message: 'Please enter a valid email address',
+  }),
+];
+
 const validateUsername = [
   validate({
     validator: 'isLength',
@@ -30,18 +42,6 @@ const validateUsername = [
     },
     passIfEmpty: false,
     message: 'Username can only include letters and numbers and underscores',
-  }),
-];
-
-const validateEmail = [
-  validate({
-    validator: function (v) {
-      return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
-        v
-      );
-    },
-    passIfEmpty: false,
-    message: 'Please enter a valid email address',
   }),
 ];
 
@@ -76,15 +76,15 @@ const userSchema = new Schema({
     trim: true,
     required: true,
   },
-  username: {
-    type: String,
-    validate: validateUsername,
-    trim: true,
-    required: true,
-  },
   email: {
     type: String,
     validate: validateEmail,
+    trim: true,
+    required: true,
+  },
+  username: {
+    type: String,
+    validate: validateUsername,
     trim: true,
     required: true,
   },
