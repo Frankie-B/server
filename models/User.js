@@ -48,14 +48,12 @@ const validateUsername = [
 const validatePassword = [
   validate({
     validator: 'isLength',
-    arguments: [8, 26],
+    arguments: [5, 26],
     message: 'Password should be between {ARGS[0]} and {ARGS[1]} characters',
   }),
   validate({
     validator: function (v) {
-      return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
-        v
-      );
+      return /[A-Za-z0-9_]$/.test(v);
     },
     passIfEmpty: false,
     message:
