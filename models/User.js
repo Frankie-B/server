@@ -53,11 +53,10 @@ const validatePassword = [
   }),
   validate({
     validator: function (v) {
-      return /[A-Za-z0-9_]$/.test(v);
+      return /[A-Za-z0-9]+$/.test(v);
     },
     passIfEmpty: false,
-    message:
-      'Password Should  contain 1 uppercase, 1 lowercase and 1 special character',
+    message: 'password can  contain alphanumeric characters',
   }),
 ];
 

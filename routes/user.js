@@ -21,7 +21,7 @@ app.post('/signup', (req, res, next) => {
         password: hash,
       })
         .then((user) => {
-          res.redirect('/login');
+          res.json('/login');
         })
         .catch((error) => {
           res.send('User not create', error);
@@ -53,7 +53,7 @@ app.post('/login', (req, res) => {
             res.send('Invalid Credentials');
           } else {
             req.session.currentUser = user;
-            res.redirect('/join');
+            res.json('/join');
           }
         });
       }
