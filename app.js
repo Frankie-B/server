@@ -49,9 +49,11 @@ function protect(req, res, next) {
   if (req.session.currentUser) {
     next();
   } else {
-    res.redirect('/user/login');
+    res.json({ send: '/login' });
   }
 }
+
+app.use('/join', protect);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -61,6 +63,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/home'));
 app.use('/signup', require('./routes/user'));
+app.use('/login', require('./routes/user'));
 app.use('/join', require('./routes/join'));
 
 module.exports = app;
