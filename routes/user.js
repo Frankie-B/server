@@ -3,11 +3,7 @@ const app = express();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
-app.get('/signup', (req, res) => {
-  res.json({ message: 'The user route is working' });
-});
-
-app.post('/signup', (req, res, next) => {
+app.post('/', (req, res, next) => {
   const { username, password, firstName, lastName, email } = req.body;
   bcrypt.hash(password, 10, function (error, hash) {
     if (error) {
@@ -21,17 +17,13 @@ app.post('/signup', (req, res, next) => {
         password: hash,
       })
         .then((user) => {
-          res.json('/login');
+          res.json(user);
         })
         .catch((error) => {
-          res.send('User not create', error);
+          res.json(error);
         });
     }
   });
-});
-
-app.get('/login', (req, res) => {
-  res.render('/login');
 });
 
 app.post('/login', (req, res) => {
@@ -41,7 +33,7 @@ app.post('/login', (req, res) => {
   })
     .then((user) => {
       if (!user) {
-        res.send('Invalid Credentials');
+        res.json({ message: 'Invalid Credentials' });
       } else {
         bcrypt.compare(password, user.password, function (
           error,
@@ -50,16 +42,16 @@ app.post('/login', (req, res) => {
           if (error) {
             next('Hash compare error');
           } else if (!correctPassword) {
-            res.send('Invalid Credentials');
+            res.json({ message: 'Invalid Credentials' });
           } else {
             req.session.currentUser = user;
-            res.json('/join');
+            res.json({ message: '/join' });
           }
         });
       }
     })
     .catch((error) => {
-      res.send('Error not logged in');
+      res.json(error);
     });
 });
 

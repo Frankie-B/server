@@ -1,9 +1,11 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
@@ -11,6 +13,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+
+app.use(
+  cors({
+    origin: ['https://localhost:3005', 'http://localhost:3005'],
+    credentials: true,
+  })
+);
 
 app.use(
   session({
@@ -51,7 +60,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/home'));
-app.use('/user', require('./routes/user'));
+app.use('/signup', require('./routes/user'));
 app.use('/join', require('./routes/join'));
 
 module.exports = app;
