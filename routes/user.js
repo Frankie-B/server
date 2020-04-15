@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 
 app.post('/', (req, res, next) => {
   const { username, password, firstName, lastName, email } = req.body;
+  console.log(username, password, firstName, lastName, email);
   bcrypt.hash(password, 10, function (error, hash) {
     if (error) {
       next('Hashing error');
@@ -54,20 +55,5 @@ app.post('/login', (req, res) => {
       res.json(error);
     });
 });
-
-// app.get('/profile', (req, res) => {
-//   res.render('user/profile');
-// });
-
-// app.get('/profile/:userId', (req, res) => {
-//   User.findById(req.session.currentUser._id)
-//     .then((userData) => {
-//       res.render('user/profile', { user: userData });
-//       console.log(user, userData);
-//     })
-//     .catch((err) => {
-//       console.log('User not found');
-//     });
-// });
 
 module.exports = app;
