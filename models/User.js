@@ -1,4 +1,3 @@
-// Extended User Model with relations.
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 var validate = require('mongoose-validator');
@@ -45,21 +44,6 @@ const validateUsername = [
   }),
 ];
 
-// const validatePassword = [
-//   validate({
-//     validator: 'isLength',
-//     arguments: [5, 26],
-//     message: 'Password should be between {ARGS[0]} and {ARGS[1]} characters',
-//   }),
-//   validate({
-//     validator: function (v) {
-//       return /[A-Za-z0-9]+$/.test(v);
-//     },
-//     passIfEmpty: false,
-//     message: 'password can  contain alphanumeric characters',
-//   }),
-// ];
-
 const userSchema = new Schema({
   firstName: {
     type: String,
@@ -87,9 +71,6 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    // validate: validatePassword,
-    // trim: true,
-    // required: true,
   },
   time: { type: Date, default: Date.now },
 });
