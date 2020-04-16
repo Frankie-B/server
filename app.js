@@ -17,16 +17,10 @@ app.use(
   cors({
     allowedHeaders: ['authorization', 'Content-Type'],
     exposedHeaders: ['authorization'],
-    origin: [
-      process.env.client_origin_a,
-      process.env.client_origin_b,
-      process.env.server_origin_a,
-      process.env.server_origin_b,
-      process.env.socket_origin_a,
-      process.env.socket_origin_b,
-    ],
+    origin: [process.env.client_origin_a, process.env.client_origin_b],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
+    credentials: true,
   })
 );
 
