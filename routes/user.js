@@ -5,7 +5,6 @@ const bcrypt = require('bcrypt');
 
 app.post('/signup', (req, res, next) => {
   const { username, password, firstName, lastName, email } = req.body;
-  console.log(username, password, firstName, lastName, email);
   bcrypt.hash(password, 10, function (error, hash) {
     if (error) {
       next('Hashing error');
