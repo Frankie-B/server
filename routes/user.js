@@ -4,17 +4,17 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
 app.post('/', (req, res, next) => {
-  const { username, password, firstName, lastName, email } = req.body;
+  // const { username, password, firstName, lastName, email } = req.body;
   console.log(username, password, firstName, lastName, email);
   bcrypt.hash(password, 10, function (error, hash) {
     if (error) {
       next('Hashing error');
     } else {
       User.create({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        username: username,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        username: req.body.username,
         password: hash,
       })
         .then((user) => {
