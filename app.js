@@ -15,15 +15,15 @@ const cors = require('cors');
 
 app.use(
   cors({
-    allowedHeaders: ['authorization', 'Content-Type'], // you can change the headers
-    exposedHeaders: ['authorization'], // you can change the headers
+    allowedHeaders: ['authorization', 'Content-Type'],
+    exposedHeaders: ['authorization'],
     origin: [
-      'http://localhost:3000',
-      'https://localhost:3000',
-      'http://localhost:3005',
-      'https://localhost:3005',
-      'http://localhost:3001',
-      'https://localhost:3001',
+      process.env.client_origin_a,
+      process.env.client_origin_b,
+      process.env.server_origin_a,
+      process.env.server_origin_b,
+      process.env.socket_origin_a,
+      process.env.socket_origin_b,
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
@@ -34,11 +34,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
   session({
-    secret: 'basic-auth-secret',
+    secret: process.env.SESSION_SECRET,
     cookie: { maxAge: 60000 },
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
-      ttl: 24 * 60 * 60, // (1 day) time to live = how long the cookie will be valid
+      ttl: 24 * 60 * 60,
     }),
   })
 );
