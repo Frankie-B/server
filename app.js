@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const app = express();
+
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -9,10 +9,9 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({ extended: false }));
-
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const cors = require('cors');
 
 app.use(
   cors({
@@ -30,6 +29,8 @@ app.use(
     preflightContinue: false,
   })
 );
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(
   session({
@@ -73,7 +74,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/home'));
 app.use('/', require('./routes/user'));
-// app.use('/login', require('./routes/user'));
+app.use('/', require('./routes/user'));
 app.use('/join', require('./routes/join'));
 
 module.exports = app;

@@ -27,7 +27,7 @@ app.post('/signup', (req, res, next) => {
   });
 });
 
-app.post('/', (req, res) => {
+app.post('/login', (req, res) => {
   const { username, password } = req.body;
   User.findOne({
     username: username,
