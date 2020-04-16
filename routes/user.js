@@ -3,18 +3,18 @@ const app = express();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
-app.post('/', (req, res, next) => {
-  // const { username, password, firstName, lastName, email } = req.body;
+app.post('/signup', (req, res, next) => {
+  const { username, password, firstName, lastName, email } = req.body;
   console.log(username, password, firstName, lastName, email);
   bcrypt.hash(password, 10, function (error, hash) {
     if (error) {
       next('Hashing error');
     } else {
       User.create({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        username: req.body.username,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        username: username,
         password: hash,
       })
         .then((user) => {
@@ -27,7 +27,7 @@ app.post('/', (req, res, next) => {
   });
 });
 
-app.post('/login', (req, res) => {
+app.post('/', (req, res) => {
   const { username, password } = req.body;
   User.findOne({
     username: username,

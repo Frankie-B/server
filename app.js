@@ -16,8 +16,18 @@ const MongoStore = require('connect-mongo')(session);
 
 app.use(
   cors({
-    origin: ['https://localhost:3005', 'http://localhost:3005'],
-    credentials: true,
+    allowedHeaders: ['authorization', 'Content-Type'], // you can change the headers
+    exposedHeaders: ['authorization'], // you can change the headers
+    origin: [
+      'http://localhost:3000',
+      'https://localhost:3000',
+      'http://localhost:3005',
+      'https://localhost:3005',
+      'http://localhost:3001',
+      'https://localhost:3001',
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
   })
 );
 
@@ -62,8 +72,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/home'));
-app.use('/signup', require('./routes/user'));
-app.use('/login', require('./routes/user'));
+app.use('/', require('./routes/user'));
+// app.use('/login', require('./routes/user'));
 app.use('/join', require('./routes/join'));
 
 module.exports = app;
