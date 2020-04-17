@@ -50,4 +50,9 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.delete('/logout', (req, res) => {
+  req.session.destroy(); //destroys the session with the user data in it
+  res.status(200).send('logged out');
+});
+
 module.exports = app;
