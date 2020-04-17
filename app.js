@@ -68,7 +68,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/home'));
 app.use('/', require('./routes/user'));
-app.use('/', require('./routes/user'));
 app.use('/join', require('./routes/join'));
 
 module.exports = app;

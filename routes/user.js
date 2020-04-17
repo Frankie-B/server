@@ -30,29 +30,24 @@ app.post('/login', (req, res) => {
   const { username, password } = req.body;
   User.findOne({
     username: username,
-  })
-    .then((user) => {
-      if (!user) {
-        res.json({ message: 'Invalid Credentials' });
-      } else {
-        bcrypt.compare(password, user.password, function (
-          error,
-          correctPassword
-        ) {
-          if (error) {
-            next('Hash compare error');
-          } else if (!correctPassword) {
-            res.json({ message: 'Invalid Credentials' });
-          } else {
-            req.session.currentUser = user;
-            res.json({ message: '/join' });
-          }
-        });
-      }
-    })
-    .catch((error) => {
-      res.json(error);
-    });
+  }).then((user) => {
+    if (!user)
+      res.status(403).json({
+        user: 'username does not exist',
+      });
+    else {
+      bcrypt.compare(password, user.password, function (err, correct) {
+        if (correct) {
+          req.session.currentUser = user;
+          res.status(200).json(user);
+        } else {
+          res.status(403).json({
+            user: 'wrong password',
+          });
+        }
+      });
+    }
+  });
 });
 
 module.exports = app;
