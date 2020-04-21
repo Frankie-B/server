@@ -13,17 +13,6 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 
-// app.use(
-//   cors({
-//     allowedHeaders: ['authorization', 'Content-Type'],
-//     exposedHeaders: ['authorization'],
-//     origin: [process.env.client_origin_a, process.env.client_origin_b, true],
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     preflightContinue: false,
-//     credentials: true,
-//   })
-// );
-
 app.use(
   cors({
     origin: true,
@@ -65,8 +54,6 @@ function protect(req, res, next) {
   }
 }
 
-app.use('/join', protect);
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -75,6 +62,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/home'));
 app.use('/', require('./routes/user'));
-app.use('/join', require('./routes/join'));
 
 module.exports = app;
