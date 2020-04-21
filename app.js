@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const app = express();
 
 const path = require('path');
@@ -12,14 +11,22 @@ const bodyParser = require('body-parser');
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const cors = require('cors');
+
+// app.use(
+//   cors({
+//     allowedHeaders: ['authorization', 'Content-Type'],
+//     exposedHeaders: ['authorization'],
+//     origin: [process.env.client_origin_a, process.env.client_origin_b, true],
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     preflightContinue: false,
+//     credentials: true,
+//   })
+// );
 
 app.use(
   cors({
-    allowedHeaders: ['authorization', 'Content-Type'],
-    exposedHeaders: ['authorization'],
-    origin: [process.env.client_origin_a, process.env.client_origin_b, true],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
+    origin: true,
     credentials: true,
   })
 );
@@ -68,6 +75,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/home'));
 app.use('/', require('./routes/user'));
-app.use('/join', require('./routes/join'));
+
+require('./routes/join');
 
 module.exports = app;
