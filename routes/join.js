@@ -66,6 +66,6 @@ io.on('connect', (socket) => {
   });
 });
 
-server.listen(PORT, () => console.log(`Server has started.`));
+server.listen(PORT, () => console.log(`Chat server has started on port`, PORT));
 
 module.exports = app;
