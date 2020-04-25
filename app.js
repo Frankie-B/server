@@ -60,7 +60,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', require('./routes/home'));
+app.use('/', require('./routes/index'));
+app.use('/', require('./routes/chat'));
 app.use('/', require('./routes/user'));
 
 module.exports = app;
