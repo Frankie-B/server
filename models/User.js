@@ -5,7 +5,7 @@ var validate = require('mongoose-validator');
 const validateName = [
   validate({
     validator: 'isLength',
-    arguments: [2, 50],
+    arguments: [3, 50],
     message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters',
   }),
   validate({
@@ -20,7 +20,7 @@ const validateName = [
 const validateEmail = [
   validate({
     validator: function (v) {
-      return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
+      return /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
         v
       );
     },
@@ -32,7 +32,7 @@ const validateEmail = [
 const validateUsername = [
   validate({
     validator: 'isLength',
-    arguments: [3, 20],
+    arguments: [3, 15],
     message: 'Username should be between {ARGS[0]} and {ARGS[1]} characters',
   }),
   validate({
